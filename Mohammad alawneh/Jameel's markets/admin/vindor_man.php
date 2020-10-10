@@ -49,6 +49,10 @@ if (isset($_GET['aid'])) {
 	$D->act_vin($_GET['aid']);
 	header("Location:vindor_man.php");
 }
+$OI=new DBO();
+if(!$OI->chick_privileges($_SESSION['id'],3)){
+	header("Location:index.php");
+}
 include_once 'included/header.php'; ?>
 <div class="dashboard-wrapper">
 	<div class="container-fluid  dashboard-content">

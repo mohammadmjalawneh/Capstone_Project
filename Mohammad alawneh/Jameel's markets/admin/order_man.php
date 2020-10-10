@@ -1,5 +1,11 @@
 <?php session_start();
-include_once 'included/header.php'; ?>
+include_once 'included/header.php';
+include_once 'included/database.php';
+$OI=new DBO();
+if(!$OI->chick_privileges($_SESSION['id'],4)){
+	header("Location:index.php");
+}
+?>
 <div class="dashboard-wrapper">
 	<div class="container-fluid  dashboard-content">
 		<div class="row">

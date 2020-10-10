@@ -204,5 +204,10 @@ class DBO
 	}public function drop_priv($id){
 		$Que="DELETE from ad_privileges where ad_id".$id;
 		$res=mysqli_query($this->conn,$Que);
+	}public function chick_privileges($id,$privileges){
+		$Que="SELECT * FROM ad_privileges WHERE ad_id=".$id." AND privileges=".$privileges;
+		$res=mysqli_query($this->conn,$Que);
+		$TR=$res->fetch_assoc();
+		return $TR;
 	}
 } 

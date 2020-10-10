@@ -26,6 +26,10 @@ if (isset($_POST['edit'])) {
 	$OBJ->up_cos($_POST['fname'],$_POST['mname'],$_POST['lname'],$_POST['email'],$_POST['password'],$_POST['mobile'],$_GET['eid']);
 	header('Location:cos_man.php');
 }
+$OI=new DBO();
+if(!$OI->chick_privileges($_SESSION['id'],5)){
+	header("Location:index.php");
+}
 ?>
 <div class="dashboard-wrapper">
 	<div class="container-fluid  dashboard-content">

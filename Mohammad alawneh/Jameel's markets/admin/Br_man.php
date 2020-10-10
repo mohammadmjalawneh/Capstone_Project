@@ -41,6 +41,10 @@ if (isset($_POST['addbrand'])) {
 	move_uploaded_file($temp,$path.$imgname);
 	$AD->add_br($_POST['br_name'],$imgname,$_POST['bigcat']);
 }
+$OI=new DBO();
+if(!$OI->chick_privileges($_SESSION['id'],7)){
+	header("Location:index.php");
+}
 include_once 'included/header.php'; ?>
 <div class="dashboard-wrapper">
 	<div class="container-fluid  dashboard-content">

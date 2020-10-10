@@ -64,6 +64,10 @@ if (isset($_POST['editcat'])) {
 	$ED->update_cat($_GET['Eid'],$_POST['name'],$imgname);
 	header("Location:Cat_man.php");
 }
+$OI=new DBO();
+if(!$OI->chick_privileges($_SESSION['id'],2)){
+	header("Location:index.php");
+}
 include_once 'included/header.php'; 
 ?>
 <div class="dashboard-wrapper">

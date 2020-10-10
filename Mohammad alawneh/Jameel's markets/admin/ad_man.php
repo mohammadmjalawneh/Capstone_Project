@@ -2,6 +2,7 @@
 ob_start();
 include_once 'included/connect.php';
 include_once 'included/database.php';
+
 session_start();
 if (!$_SESSION['id']==3) {
 	header("Location:login.php");
@@ -55,7 +56,12 @@ if (isset($_POST['Edit_ad'])) {
 	}
 	header("Location:ad_man.php");
 }
-include_once 'included/header.php';?>
+include_once 'included/header.php';
+$OI=new DBO();
+if(!$OI->chick_privileges($_SESSION['id'],1)){
+	header("Location:index.php");
+}
+?>
 <div class="dashboard-wrapper">
 	<div class="container-fluid  dashboard-content">
 		<div class="row">

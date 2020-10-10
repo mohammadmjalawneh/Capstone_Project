@@ -99,7 +99,7 @@ $ad=$A->get_admin($_SESSION['id']);
                                         echo "<a class='nav-link' href='Cat_man.php' aria-expanded='false' aria-controls='submenu-1'><i class='fa fa-fw fa-user-circle'></i>Category managment</a>";
                                     }
                                     if ($P['privileges']==3) {
-                                        echo "<a class='nav-link' href='vindor_man.php' aria-expanded='false' aria-controls='submenu-1'><i class='fa fa-fw fa-user-circle'></i>Vindor managment</a>";
+                                        echo "<a class='nav-link' href='vindor_man.php' aria-expanded='false' aria-controls='submenu-1'><i class='fa fa-fw fa-user-circle'></i>Vendor managment</a>";
                                     }
                                     if ($P['privileges']==4) {
                                         echo "<a class='nav-link' href='order_man.php' aria-expanded='false' aria-controls='submenu-1'><i class='fa fa-fw fa-user-circle'></i>Order managment</a>";

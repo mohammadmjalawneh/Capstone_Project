@@ -15,6 +15,10 @@ if (isset($_GET['aid'])) {
 	$De->actpro($_GET['aid']);
 	header('Location:product_man.php');
 }
+$OI=new DBO();
+if(!$OI->chick_privileges($_SESSION['id'],6)){
+	header("Location:index.php");
+}
 include_once 'included/header.php'; ?>
 <style type="text/css">
 	textarea {
