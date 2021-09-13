@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPMailer RFC821 SMTP email transport class.
  * PHP Version 5
@@ -281,7 +282,7 @@ class SMTP
         // Connect to the SMTP server
         $this->edebug(
             "Connection: opening to $host:$port, timeout=$timeout, options=" .
-            var_export($options, true),
+                var_export($options, true),
             self::DEBUG_CONNECTION
         );
         $errno = 0;
@@ -323,7 +324,7 @@ class SMTP
             );
             $this->edebug(
                 'SMTP ERROR: ' . $this->error['error']
-                . ": $errstr ($errno)",
+                    . ": $errstr ($errno)",
                 self::DEBUG_CLIENT
             );
             return false;
@@ -449,8 +450,7 @@ class SMTP
                     'User & Password',
                     base64_encode("\0" . $username . "\0" . $password),
                     235
-                )
-                ) {
+                )) {
                     return false;
                 }
                 break;
@@ -496,7 +496,7 @@ class SMTP
                     $this->setError($temp->error);
                     $this->edebug(
                         'You need to enable some modules in your php.ini file: '
-                        . $this->error['error'],
+                            . $this->error['error'],
                         self::DEBUG_CLIENT
                     );
                     return false;
@@ -508,8 +508,7 @@ class SMTP
                     'AUTH NTLM',
                     'AUTH NTLM ' . base64_encode($msg1),
                     334
-                )
-                ) {
+                )) {
                     return false;
                 }
                 //Though 0 based, there is a white space after the 3 digit number
@@ -733,7 +732,7 @@ class SMTP
     public function hello($host = '')
     {
         //Try extended hello first (RFC 2821)
-        return (boolean)($this->sendHello('EHLO', $host) or $this->sendHello('HELO', $host));
+        return (bool)($this->sendHello('EHLO', $host) or $this->sendHello('HELO', $host));
     }
 
     /**
@@ -899,7 +898,7 @@ class SMTP
             // Cut off error code from each response line
             $detail = preg_replace(
                 "/{$code}[ -]" .
-                ($code_ex ? str_replace('.', '\\.', $code_ex) . ' ' : '') . "/m",
+                    ($code_ex ? str_replace('.', '\\.', $code_ex) . ' ' : '') . "/m",
                 '',
                 $this->last_reply
             );
@@ -1117,7 +1116,7 @@ class SMTP
             if ($endtime and time() > $endtime) {
                 $this->edebug(
                     'SMTP -> get_lines(): timelimit reached (' .
-                    $this->Timelimit . ' sec)',
+                        $this->Timelimit . ' sec)',
                     self::DEBUG_LOWLEVEL
                 );
                 break;

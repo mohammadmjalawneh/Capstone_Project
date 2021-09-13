@@ -1,11 +1,12 @@
 <?php
 ob_start();
-session_start(); 
+session_start();
 include_once 'connect.php';
 if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart']=array();
+    $_SESSION['cart'] = array();
 }
 ?>
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -38,31 +39,30 @@ if (!isset($_SESSION['cart'])) {
 <script type="text/javascript">
     $(document).ready(function() {
         load_data();
-        function load_data(query)
-        {
+
+        function load_data(query) {
             $.ajax({
-                url:"search.php",
-                method:"post",
-                data:{query:query},
-                success:function(data)
-                {
+                url: "search.php",
+                method: "post",
+                data: {
+                    query: query
+                },
+                success: function(data) {
                     $('#search_result').html(data);
                 }
             });
         }
-        $('#search_input').keyup(function(){
+        $('#search_input').keyup(function() {
             var search = $(this).val();
-            if(search != '')
-            {
+            if (search != '') {
                 load_data(search);
-            }
-            else
-            {
-                load_data();            
+            } else {
+                load_data();
             }
         });
     });
 </script>
+
 <body class="bg-white">
     <!--::header part start::-->
     <header class="main_menu home_menu">
@@ -71,9 +71,7 @@ if (!isset($_SESSION['cart'])) {
                 <div class="col-lg-11">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <a class="navbar-brand" href="index.php"> <img src="img/logo.png" alt="logo"> </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="menu_icon"><i class="fas fa-bars"></i></span>
                         </button>
 
@@ -83,16 +81,15 @@ if (!isset($_SESSION['cart'])) {
                                     <a class="nav-link" href="index.php">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Category
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <?php
-                                            echo "<a class='dropdown-item' href='category.php'>Shop</a>";
-                                        $Que="SELECT * FROM bigcat where bigcat_sta='1'";
-                                        $res=mysqli_query($connect,$Que);
-                                        while ($I=$res->fetch_assoc()) {
+                                        echo "<a class='dropdown-item' href='category.php'>Shop</a>";
+                                        $Que = "SELECT * FROM bigcat where bigcat_sta='1'";
+                                        $res = mysqli_query($connect, $Que);
+                                        while ($I = $res->fetch_assoc()) {
                                             echo "<a class='dropdown-item' href='category.php?C={$I['bigcat_id']}'>{$I['bigcat_name']}</a>";
                                         }
                                         ?>
@@ -106,18 +103,18 @@ if (!isset($_SESSION['cart'])) {
                         <div class="hearer_icon d-flex">
                             <div class="dropdown">
                                 <a href="cart.php" role="button">
-                                   <i class="fas fa-shopping-cart" style="font-size: 24px;"></i><span><?php  if (sizeof($_SESSION['cart'])!=0) {
-                                       echo sizeof($_SESSION['cart']);
-                                   } 
-                                ?></span></a>
+                                    <i class="fas fa-shopping-cart" style="font-size: 24px;"></i><span><?php if (sizeof($_SESSION['cart']) != 0) {
+                                                                                                            echo sizeof($_SESSION['cart']);
+                                                                                                        }
+                                                                                                        ?></span></a>
                                 </a>
                                 <span style='font-size: 24px;color:black;'>|</span>
                                 <?php if (isset($_SESSION['cid'])) {
                                     echo "<a href='logout.php' style='font-size: 16px;color:black;' role='button'>Logout</a>";
-                                }else{
+                                } else {
                                     echo "<a href='login.php' style='font-size: 16px;color:black;' role='button'>Login</a>";
                                 }
-                                 ?>
+                                ?>
                             </div>
                             <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
                         </div>

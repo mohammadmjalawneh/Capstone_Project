@@ -1,38 +1,37 @@
 /*************** subscribe now **********************/
-.subscribe_area{
+
+.subscribe_area {
     @include background("../img/subscribe_area.png");
-    h5{
+    h5 {
         font-size: 14px;
         font-weight: 400;
         color: $primary_color;
         text-transform: uppercase;
         letter-spacing: 2px;
     }
-    h2{
+    h2 {
         font-weight: 700;
         font-size: 48px;
         line-height: 60px;
         margin: 35px 0 67px;
-        @media #{$tab}{
+        @media #{$tab} {
             font-size: 30px;
             line-height: 35px;
             margin: 15px 0 30px;
         }
-        @media #{$medium_device}{
-        
-        }
+        @media #{$medium_device} {}
     }
-    .input-group{
-        input{
+    .input-group {
+        input {
             height: 60px;
             padding-left: 25px;
             border: 0px solid transparent;
             background-color: $white_color;
-            &::placeholder{
+            &::placeholder {
                 text-transform: capitalize;
             }
         }
-        .input-group-text{
+        .input-group-text {
             height: 60px;
             width: auto;
             line-height: 60px;
@@ -44,35 +43,29 @@
             border-radius: 5px;
             margin-left: 10px;
         }
-        
     }
-    
-    @media #{$small_mobile}{
-        .input-group>.custom-file, .input-group>.custom-select, .input-group>.form-control, .input-group>.form-control-plaintext {
+    @media #{$small_mobile} {
+        .input-group>.custom-file,
+        .input-group>.custom-select,
+        .input-group>.form-control,
+        .input-group>.form-control-plaintext {
             position: relative;
             -ms-flex: 1 1 auto;
             flex: 1 1 auto;
             width: 100%;
             margin-bottom: 0;
         }
-        .input-group{
+        .input-group {
             text-align: center;
             justify-content: center;
         }
-        .input-group-text{
+        .input-group-text {
             margin-top: 30px;
             text-align: center;
             margin-left: 0;
         }
     }
-    @media #{$large_mobile}{
-    
-    }
-    
-    @media #{$tab_device}{
-
-    }
-    @media #{$medium_device}{
-    
-    }
+    @media #{$large_mobile} {}
+    @media #{$tab_device} {}
+    @media #{$medium_device} {}
 }

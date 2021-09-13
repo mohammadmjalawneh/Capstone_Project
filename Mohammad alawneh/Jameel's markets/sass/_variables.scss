@@ -1,13 +1,18 @@
-$font_stack_1: 'Roboto', sans-serif;
-$font_stack_2: 'Roboto Condensed', sans-serif;
-$body-font: 'Roboto', sans-serif;
-$title-font: 'Roboto Condensed', sans-serif;
+$font_stack_1: 'Roboto',
+sans-serif;
+$font_stack_2: 'Roboto Condensed',
+sans-serif;
+$body-font: 'Roboto',
+sans-serif;
+$title-font: 'Roboto Condensed',
+sans-serif;
+
 /*Color Variables*/
 
-$primary-color  : #2f7dfc;
-$title-color    : #2a2a2a;
-$text-color     : #797979;
-$offwhite       : #f6f6f6;
+$primary-color: #2f7dfc;
+$title-color: #2a2a2a;
+$text-color: #797979;
+$offwhite: #f6f6f6;
 $white: #fff;
 $section_bg: #f4f4f4;
 $white_color: #fff;
@@ -40,10 +45,7 @@ $font_d: #dddddd;
 $border_color: #edeff2;
 $footer_bg: #303030;
 $sidebar_bg: #fbf9ff;
-
-
-
-$medium_device : 'only screen and (min-width: 992px) and (max-width: 1200px)';
+$medium_device: 'only screen and (min-width: 992px) and (max-width: 1200px)';
 $tab_device:'only screen and (min-width: 768px) and (max-width: 991px)';
 $large_mobile: 'only screen and (min-width: 576px) and (max-width: 767px)';
 $tab:'(max-width: 991px)';
@@ -52,6 +54,3 @@ $xs_mobile:'(max-width: 420px)';
 $sm_mobile:'only screen and (min-width: 421px) and (max-width: 575px)';
 $big_screen:'only screen and (min-width: 1200px) and (max-width: 1440px)';
 $extra_big_screen: 'only screen and (min-width: 1200px) and (max-width: 3640px)';
-  
-  
-  

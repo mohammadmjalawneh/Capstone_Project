@@ -1,4 +1,4 @@
-<?php 
+<?php
 ob_start();
 include_once 'included/header.php';
 include_once 'included/database.php';
@@ -27,7 +27,7 @@ include_once 'included/database.php';
                     <div class="login_part_text_iner">
                         <h2>New to our Shop?</h2>
                         <p>There are advances being made in science and technology
-                        everyday, and a good example of this is the</p>
+                            everyday, and a good example of this is the</p>
                         <a href="create.php" class="btn_3">Create an Account</a>
                     </div>
                 </div>
@@ -36,31 +36,29 @@ include_once 'included/database.php';
                 <div class="login_part_form">
                     <div class="login_part_form_iner">
                         <h3>Welcome Back ! <br>
-                        Please Sign in now</h3>
-                        <?php 
-                        if (isset($_POST['submit'])){
-                            $OBJ=new DBO();
-                            $TR=$OBJ->chick_cos($_POST['email'],$_POST['password']);
+                            Please Sign in now</h3>
+                        <?php
+                        if (isset($_POST['submit'])) {
+                            $OBJ = new DBO();
+                            $TR = $OBJ->chick_cos($_POST['email'], $_POST['password']);
                             if (empty($TR)) {
                                 echo "<div class='alert alert-danger' role='alert'>
                                 Please check Your E-mail or Password</div>";
-                            }elseif ($TR['cos_status']) {
-                                $_SESSION['cid']=$TR['cos_id'];
+                            } elseif ($TR['cos_status']) {
+                                $_SESSION['cid'] = $TR['cos_id'];
                                 header("Location:checkout.php");
-                            }else{
+                            } else {
                                 echo "<div class='alert alert-danger' role='alert'>
                                 Please contact with the costmer care center</div>";
                             }
-                        } 
+                        }
                         ?>
                         <form class="row contact_form" action="" method="post">
                             <div class="col-md-12 form-group p_star">
-                                <input type="email" class="form-control" id="name" name="email" value=""
-                                placeholder="Enter Email" required>
+                                <input type="email" class="form-control" id="name" name="email" value="" placeholder="Enter Email" required>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="password" class="form-control" id="password" name="password" value=""
-                                placeholder="Enter Password" required>
+                                <input type="password" class="form-control" id="password" name="password" value="" placeholder="Enter Password" required>
                             </div>
                             <div class="col-md-12 form-group">
                                 <button type="submit" name="submit" value="submit" class="btn_3">
@@ -77,4 +75,5 @@ include_once 'included/database.php';
 </section>
 <?php include_once 'included/footer.php'; ?>
 </body>
+
 </html>

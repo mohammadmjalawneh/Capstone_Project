@@ -1,10 +1,11 @@
-<?php ob_start(); 
+<?php ob_start();
 session_start();
 include_once 'included/database.php';
 include_once 'included/connect.php';
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -16,19 +17,19 @@ include_once 'included/connect.php';
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    body {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
     </style>
 </head>
 
@@ -43,22 +44,21 @@ include_once 'included/connect.php';
                 <form action="" method="POST">
                     <?php
                     if (isset($_POST['login'])) {
-                        $Re=new DBO();
-                        $ad=$Re->chick_admin($_POST['email'],$_POST['password']);
+                        $Re = new DBO();
+                        $ad = $Re->chick_admin($_POST['email'], $_POST['password']);
                         if (empty($ad)) {
-                         echo "<div class='alert alert-danger' role='alert'>
+                            echo "<div class='alert alert-danger' role='alert'>
                          Please Check Your E-mail or Password
                          </div>";
-                        }elseif ($ad['ad_status']) {
-                            $_SESSION['id']=$ad['ad_id'];
+                        } elseif ($ad['ad_status']) {
+                            $_SESSION['id'] = $ad['ad_id'];
                             header("Location:index.php");
-                        }else{
+                        } else {
                             echo "<div class='alert alert-danger' role='alert'>
                          You are not Active,Please Call the manager
                          </div>";
                         }
-                        
-                    }  
+                    }
                     ?>
                     <div class="form-group">
                         <input class="form-control form-control-lg" id="username" name="email" type="email" placeholder="Your E-mail" autocomplete="off">
@@ -74,7 +74,7 @@ include_once 'included/connect.php';
             </div>
         </div>
     </div>
-  
+
     <!-- ============================================================== -->
     <!-- end login page  -->
     <!-- ============================================================== -->
@@ -82,5 +82,5 @@ include_once 'included/connect.php';
     <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
- 
+
 </html>

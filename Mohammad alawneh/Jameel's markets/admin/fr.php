@@ -3,7 +3,7 @@ include_once 'included/mail.php';
 ?>
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,19 +15,19 @@ include_once 'included/mail.php';
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    body {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
     </style>
 </head>
 
@@ -39,26 +39,26 @@ include_once 'included/mail.php';
         <div class="card">
             <div class="card-header text-center"><img class="logo-img" src="assets/images/logo.png" alt="logo"><span class="splash-description">Please enter your information.</span></div>
             <div class="card-body">
-            	<?php
-            	if (isset($_POST['reset'])) {
-            		$Re=new DBO();
-            		$ad=$Re->chick_admin2($_POST['email']);
-            		if (empty($ad)) {
-            			echo "<div class='alert alert-danger' role='alert'>
+                <?php
+                if (isset($_POST['reset'])) {
+                    $Re = new DBO();
+                    $ad = $Re->chick_admin2($_POST['email']);
+                    if (empty($ad)) {
+                        echo "<div class='alert alert-danger' role='alert'>
             			Please Check Your E-mail
             			</div>";
-            		}else{
-            			getdata($ad['ad_id']);
-            		}
-            	}
-            	?>
+                    } else {
+                        getdata($ad['ad_id']);
+                    }
+                }
+                ?>
                 <form action="" method="POST">
                     <p>Don't worry, we'll send you an email to reset your password.</p>
                     <div class="form-group">
                         <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="Your Email" autocomplete="off">
                     </div>
                     <div class="form-group pt-1">
-                    	<button class="btn btn-block btn-primary btn-xl" name="reset" type="submit">Reset Password</button>
+                        <button class="btn btn-block btn-primary btn-xl" name="reset" type="submit">Reset Password</button>
                     </div>
                 </form>
             </div>
@@ -72,5 +72,5 @@ include_once 'included/mail.php';
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 
- 
+
 </html>

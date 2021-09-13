@@ -3,35 +3,41 @@ ob_start();
 include_once 'included/header.php';
 include_once 'included/connect.php';
 include_once 'included/database.php';
-if (isset($_GET['id'])&&isset($_GET['C'])) {
-    array_push($_SESSION['cart'],$_GET['id']);
-    header('Location:category.php?C='.$_GET['C']);
-}if (isset($_GET['id'])&&isset($_GET['S'])) {
-    array_push($_SESSION['cart'],$_GET['id']);
-    header('Location:category.php?S='.$_GET['S']);
-}if (isset($_GET['id'])&&isset($_GET['B'])) {
-    array_push($_SESSION['cart'],$_GET['id']);
-    header('Location:category.php?B='.$_GET['B']);
-}if (isset($_GET['id'])) {
-    array_push($_SESSION['cart'],$_GET['id']);
+if (isset($_GET['id']) && isset($_GET['C'])) {
+    array_push($_SESSION['cart'], $_GET['id']);
+    header('Location:category.php?C=' . $_GET['C']);
+}
+if (isset($_GET['id']) && isset($_GET['S'])) {
+    array_push($_SESSION['cart'], $_GET['id']);
+    header('Location:category.php?S=' . $_GET['S']);
+}
+if (isset($_GET['id']) && isset($_GET['B'])) {
+    array_push($_SESSION['cart'], $_GET['id']);
+    header('Location:category.php?B=' . $_GET['B']);
+}
+if (isset($_GET['id'])) {
+    array_push($_SESSION['cart'], $_GET['id']);
     header("Location:category.php");
-}elseif (isset($_GET['C'])) {
-    $N=0;
-    $T=new DBO();$R=new DBO();
-    $C=$T->getcat($_GET['C']);
-    $N=$R->bigcatpro_count($_GET['C']);
-}elseif (isset($_GET['S'])) {
-    $N=0;
-    $T=new DBO();$R=new DBO();
-    $C=$T->getsub($_GET['S']);
-    $N=$R->subpro_count($_GET['S']);
-}elseif(isset($_GET['B'])){
-    $T=new DBO();$R=new DBO();
-    $C=$T->getbrand($_GET['B']);
-    $N=$R->brpro_count($_GET['B']);
-}else{
-    $R=new DBO();
-    $N=$R->getpro_count();
+} elseif (isset($_GET['C'])) {
+    $N = 0;
+    $T = new DBO();
+    $R = new DBO();
+    $C = $T->getcat($_GET['C']);
+    $N = $R->bigcatpro_count($_GET['C']);
+} elseif (isset($_GET['S'])) {
+    $N = 0;
+    $T = new DBO();
+    $R = new DBO();
+    $C = $T->getsub($_GET['S']);
+    $N = $R->subpro_count($_GET['S']);
+} elseif (isset($_GET['B'])) {
+    $T = new DBO();
+    $R = new DBO();
+    $C = $T->getbrand($_GET['B']);
+    $N = $R->brpro_count($_GET['B']);
+} else {
+    $R = new DBO();
+    $N = $R->getpro_count();
 }
 ?>
 <!-- Header part end-->
@@ -64,18 +70,18 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                         <div class="widgets_inner">
                             <ul class="list">
                                 <?php
-                                $Que="SELECT * FROM bigcat where bigcat_sta='1'";
-                                $res=mysqli_query($connect,$Que);
-                                while ($I=$res->fetch_assoc()) {
+                                $Que = "SELECT * FROM bigcat where bigcat_sta='1'";
+                                $res = mysqli_query($connect, $Que);
+                                while ($I = $res->fetch_assoc()) {
                                     echo "<li class='sub-menu'>";
                                     echo "<a href='#' class='d-flex justify-content-between'>
                                     {$I['bigcat_name']}
                                     <div class='right ti-plus'></div>
                                     </a>";
                                     echo "<ul>";
-                                    $Q2="SELECT * FROM subcat where bigcat_id=".$I['bigcat_id']." AND subcat_sta ='1'";
-                                    $r2=mysqli_query($connect,$Q2);
-                                    while ($I2=$r2->fetch_assoc()) {
+                                    $Q2 = "SELECT * FROM subcat where bigcat_id=" . $I['bigcat_id'] . " AND subcat_sta ='1'";
+                                    $r2 = mysqli_query($connect, $Q2);
+                                    while ($I2 = $r2->fetch_assoc()) {
                                         echo "<li>
                                         <a href='category.php?S={$I2['subcat_id']}'>{$I2['subcat_name']}</a>
                                         </li>";
@@ -92,18 +98,18 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                         <div class="widgets_inner">
                             <ul class="list">
                                 <?php
-                                $Que="SELECT * FROM bigcat where bigcat_sta='1'";
-                                $res=mysqli_query($connect,$Que);
-                                while ($I=$res->fetch_assoc()) {
+                                $Que = "SELECT * FROM bigcat where bigcat_sta='1'";
+                                $res = mysqli_query($connect, $Que);
+                                while ($I = $res->fetch_assoc()) {
                                     echo "<li class='sub-menu'>";
                                     echo "<a href='#' class=' d-flex justify-content-between'>
                                     {$I['bigcat_name']}
                                     <div class='right ti-plus'></div>
                                     </a>";
                                     echo "<ul>";
-                                    $Q2="SELECT * FROM brand where bigcat_id=".$I['bigcat_id']." AND br_sta ='1'";
-                                    $r2=mysqli_query($connect,$Q2);
-                                    while ($I2=$r2->fetch_assoc()) {
+                                    $Q2 = "SELECT * FROM brand where bigcat_id=" . $I['bigcat_id'] . " AND br_sta ='1'";
+                                    $r2 = mysqli_query($connect, $Q2);
+                                    while ($I2 = $r2->fetch_assoc()) {
                                         echo "<li>
                                         <a href='category.php?B={$I2['br_id']}'>{$I2['br_name']}</a>
                                         </li>";
@@ -125,11 +131,11 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                                 <?php
                                 if (isset($_GET['C'])) {
                                     echo "<h2>{$C['bigcat_name']} ({$N})</h2>";
-                                }elseif (isset($_GET['S'])) {
+                                } elseif (isset($_GET['S'])) {
                                     echo "<h2>{$C['subcat_name']} ({$N})</h2>";
-                                }elseif(isset($_GET['B'])){
+                                } elseif (isset($_GET['B'])) {
                                     echo "<h2>{$C['br_name']} ({$N})</h2>";
-                                }else{
+                                } else {
                                     echo "<h2>All Products ($N)</h2>";
                                 }
                                 ?>
@@ -139,19 +145,19 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                     <div class="card-group">
                         <?php
                         if (isset($_GET['C'])) {
-                            $OBJ2=new DBO();
-                            $Que="SELECT * FROM product where bigcat_id=".$_GET['C']." and pro_sta='1'";
-                            $R=mysqli_query($connect,$Que);
-                            while ($I=$R->fetch_assoc()) {
-                                $sub=$OBJ2->getsub($I['subcat_id']);
+                            $OBJ2 = new DBO();
+                            $Que = "SELECT * FROM product where bigcat_id=" . $_GET['C'] . " and pro_sta='1'";
+                            $R = mysqli_query($connect, $Que);
+                            while ($I = $R->fetch_assoc()) {
+                                $sub = $OBJ2->getsub($I['subcat_id']);
                                 if ($sub['subcat_sta']) {
-                                    $br=$OBJ2->getbrand($I['br_id']);
+                                    $br = $OBJ2->getbrand($I['br_id']);
                                     if ($br['br_sta']) {
-                                        $vin=$OBJ2->getvin($I['vin_id']);
+                                        $vin = $OBJ2->getvin($I['vin_id']);
                                         if ($vin['vin_status']) {
-                                            $Q="SELECT * FROM pro_img where pro_id=".$I['pro_id'];
-                                            $O=mysqli_query($connect,$Q);
-                                            $I3=$O->fetch_assoc();
+                                            $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                            $O = mysqli_query($connect, $Q);
+                                            $I3 = $O->fetch_assoc();
                                             echo "<div class='col-lg-4 col-sm-6 mt-4'>
                                             <div class='card'>
                                             <div class='card-body'>
@@ -176,22 +182,21 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                                         }
                                     }
                                 }
-                                
                             }
-                        }elseif(isset($_GET['S'])){
-                            $OBJ2=new DBO();
-                            $Que="SELECT * FROM product where subcat_id=".$_GET['S']." and pro_sta='1'";
-                            $R=mysqli_query($connect,$Que);
-                            while ($I=$R->fetch_assoc()) {
-                                $big=$OBJ2->getcat($I['bigcat_id']);
+                        } elseif (isset($_GET['S'])) {
+                            $OBJ2 = new DBO();
+                            $Que = "SELECT * FROM product where subcat_id=" . $_GET['S'] . " and pro_sta='1'";
+                            $R = mysqli_query($connect, $Que);
+                            while ($I = $R->fetch_assoc()) {
+                                $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
-                                    $br=$OBJ2->getbrand($I['br_id']);
+                                    $br = $OBJ2->getbrand($I['br_id']);
                                     if ($br['br_sta']) {
-                                        $vin=$OBJ2->getvin($I['vin_id']);
+                                        $vin = $OBJ2->getvin($I['vin_id']);
                                         if ($vin['vin_status']) {
-                                            $Q="SELECT * FROM pro_img where pro_id=".$I['pro_id'];
-                                            $O=mysqli_query($connect,$Q);
-                                            $I3=$O->fetch_assoc();
+                                            $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                            $O = mysqli_query($connect, $Q);
+                                            $I3 = $O->fetch_assoc();
                                             echo "<div class='col-lg-4 col-sm-6 mt-4'>
                                             <div class='card'>
                                             <div class='card-body'>
@@ -217,20 +222,20 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                                     }
                                 }
                             }
-                        }elseif (isset($_GET['B'])) {
-                            $OBJ2=new DBO();
-                            $Que="SELECT * FROM product where pro_sta='1' AND br_id=".$_GET['B'];
-                            $R2=mysqli_query($connect,$Que);
-                            while ($I=$R2->fetch_assoc()) {
-                                $big=$OBJ2->getcat($I['bigcat_id']);
+                        } elseif (isset($_GET['B'])) {
+                            $OBJ2 = new DBO();
+                            $Que = "SELECT * FROM product where pro_sta='1' AND br_id=" . $_GET['B'];
+                            $R2 = mysqli_query($connect, $Que);
+                            while ($I = $R2->fetch_assoc()) {
+                                $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
-                                    $sub=$OBJ2->getsub($I['subcat_id']);
+                                    $sub = $OBJ2->getsub($I['subcat_id']);
                                     if ($sub['subcat_sta']) {
-                                        $vin=$OBJ2->getvin($I['vin_id']);
+                                        $vin = $OBJ2->getvin($I['vin_id']);
                                         if ($vin['vin_status']) {
-                                            $Q="SELECT * FROM pro_img where pro_id=".$I['pro_id'];
-                                            $O=mysqli_query($connect,$Q);
-                                            $I3=$O->fetch_assoc();
+                                            $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                            $O = mysqli_query($connect, $Q);
+                                            $I3 = $O->fetch_assoc();
                                             echo "<div class='col-lg-4 col-sm-6 mt-4'>
                                             <div class='card'>
                                             <div class='card-body'>
@@ -256,24 +261,24 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                                     }
                                 }
                             }
-                        }elseif (isset($_GET['search_input'])) {
-                            $OBJ2=new DBO();
-                            $Que="SELECT * FROM product 
-                            WHERE pro_name LIKE '%".$_GET['search_input']."%'
-                            OR pro_desc LIKE '%".$_GET['search_input']."%'";
-                            $R2=mysqli_query($connect,$Que);
-                            while ($I=$R2->fetch_assoc()) {
-                                $big=$OBJ2->getcat($I['bigcat_id']);
+                        } elseif (isset($_GET['search_input'])) {
+                            $OBJ2 = new DBO();
+                            $Que = "SELECT * FROM product 
+                            WHERE pro_name LIKE '%" . $_GET['search_input'] . "%'
+                            OR pro_desc LIKE '%" . $_GET['search_input'] . "%'";
+                            $R2 = mysqli_query($connect, $Que);
+                            while ($I = $R2->fetch_assoc()) {
+                                $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
-                                    $sub=$OBJ2->getsub($I['subcat_id']);
+                                    $sub = $OBJ2->getsub($I['subcat_id']);
                                     if ($sub['subcat_sta']) {
-                                        $br=$OBJ2->getbrand($I['br_id']);
+                                        $br = $OBJ2->getbrand($I['br_id']);
                                         if ($br['br_sta']) {
-                                            $vin=$OBJ2->getvin($I['vin_id']);
+                                            $vin = $OBJ2->getvin($I['vin_id']);
                                             if ($vin['vin_status']) {
-                                                $Q="SELECT * FROM pro_img where pro_id=".$I['pro_id'];
-                                                $O=mysqli_query($connect,$Q);
-                                                $I3=$O->fetch_assoc();
+                                                $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                                $O = mysqli_query($connect, $Q);
+                                                $I3 = $O->fetch_assoc();
                                                 echo "<div class='col-lg-4 col-sm-6 mt-4'>
                                             <div class='card'>
                                             <div class='card-body'>
@@ -300,22 +305,22 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
                                     }
                                 }
                             }
-                        }else{
-                            $OBJ2=new DBO();
-                            $Que="SELECT * FROM product where pro_sta='1'";
-                            $R2=mysqli_query($connect,$Que);
-                            while ($I=$R2->fetch_assoc()) {
-                                $big=$OBJ2->getcat($I['bigcat_id']);
+                        } else {
+                            $OBJ2 = new DBO();
+                            $Que = "SELECT * FROM product where pro_sta='1'";
+                            $R2 = mysqli_query($connect, $Que);
+                            while ($I = $R2->fetch_assoc()) {
+                                $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
-                                    $sub=$OBJ2->getsub($I['subcat_id']);
+                                    $sub = $OBJ2->getsub($I['subcat_id']);
                                     if ($sub['subcat_sta']) {
-                                        $br=$OBJ2->getbrand($I['br_id']);
+                                        $br = $OBJ2->getbrand($I['br_id']);
                                         if ($br['br_sta']) {
-                                            $vin=$OBJ2->getvin($I['vin_id']);
+                                            $vin = $OBJ2->getvin($I['vin_id']);
                                             if ($vin['vin_status']) {
-                                                $Q="SELECT * FROM pro_img where pro_id=".$I['pro_id'];
-                                                $O=mysqli_query($connect,$Q);
-                                                $I3=$O->fetch_assoc();
+                                                $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                                $O = mysqli_query($connect, $Q);
+                                                $I3 = $O->fetch_assoc();
                                                 echo "<div class='col-lg-4 col-sm-6 mt-4'>
                                                 <div class='card'>
                                                 <div class='card-body'>
@@ -352,4 +357,5 @@ if (isset($_GET['id'])&&isset($_GET['C'])) {
 </section>
 <?php include_once 'included/footer.php'; ?>
 </body>
+
 </html>

@@ -5,7 +5,7 @@ if (!isset($_SESSION['vid'])) {
 include_once 'included/database.php';
 include_once 'included/connect.php';
 include_once 'included/header.php';
-$OBJ=new DBO();
+$OBJ = new DBO();
 ?>
 <div class="dashboard-wrapper">
 	<div class="container-fluid  dashboard-content">
@@ -31,32 +31,33 @@ $OBJ=new DBO();
 								</thead>
 								<tbody>
 									<?php
-									$C=0;$total=0; 
-									$Que="SELECT * FROM orders";
-									$res=mysqli_query($connect,$Que);
-									while ($I=$res->fetch_assoc()) {
-										$I2=$OBJ->cos_info($I['cos_id']);
-										$Que2="SELECT * FROM or_det where order_id=".$I['or_id'];
-										$re=mysqli_query($connect,$Que2);
-										while ($T=$re->fetch_assoc()) {
-											$I4=$OBJ->getdata($T['pro_id']);
-											if ($I4['vin_id']==$_SESSION['vid']) {
-												$total=$total+$T['pro_price'];
+									$C = 0;
+									$total = 0;
+									$Que = "SELECT * FROM orders";
+									$res = mysqli_query($connect, $Que);
+									while ($I = $res->fetch_assoc()) {
+										$I2 = $OBJ->cos_info($I['cos_id']);
+										$Que2 = "SELECT * FROM or_det where order_id=" . $I['or_id'];
+										$re = mysqli_query($connect, $Que2);
+										while ($T = $re->fetch_assoc()) {
+											$I4 = $OBJ->getdata($T['pro_id']);
+											if ($I4['vin_id'] == $_SESSION['vid']) {
+												$total = $total + $T['pro_price'];
 												$C++;
 											}
 										}
-										if ($C!=0) {
+										if ($C != 0) {
 											echo "<tr>";
-											echo "<th>".$I['or_id']."</th>";
-											echo "<th>".$I2['cos_fname']." ".$I2['cos_lname']."</th>";
-											$Add=$OBJ->get_add($I['add_id']);
-											echo "<th>".$Add['country']." ".$Add['city']." ".$Add['sr_name']."St.".'</th>';
-											echo "<th>".$C."</th>";
-											echo "<th>".$I['or_date']."</th>";
-											echo "<th>".$total."</th>";
+											echo "<th>" . $I['or_id'] . "</th>";
+											echo "<th>" . $I2['cos_fname'] . " " . $I2['cos_lname'] . "</th>";
+											$Add = $OBJ->get_add($I['add_id']);
+											echo "<th>" . $Add['country'] . " " . $Add['city'] . " " . $Add['sr_name'] . "St." . '</th>';
+											echo "<th>" . $C . "</th>";
+											echo "<th>" . $I['or_date'] . "</th>";
+											echo "<th>" . $total . "</th>";
 											echo "</tr>";
 										}
-										$C=0;
+										$C = 0;
 									}
 									?>
 								</tbody>
