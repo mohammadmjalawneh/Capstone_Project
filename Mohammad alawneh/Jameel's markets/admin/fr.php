@@ -44,9 +44,10 @@ include_once 'included/mail.php';
                     $Re = new DBO();
                     $ad = $Re->chick_admin2($_POST['email']);
                     if (empty($ad)) {
-                        echo "<div class='alert alert-danger' role='alert'>
+                        echo "
+                    <div class='alert alert-danger' role='alert'>
             			Please Check Your E-mail
-            			</div>";
+            		</div>";
                     } else {
                         getdata($ad['ad_id']);
                     }

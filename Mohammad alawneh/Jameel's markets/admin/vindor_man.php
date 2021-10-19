@@ -234,16 +234,13 @@ include_once 'included/header.php'; ?>
 								</thead>
 								<tbody>
 									<?php
-									$AdQue = "SELECT * FROM vindor";
+									$AdQue = "SELECT vindor.*,bigcat.bigcat_name FROM vindor JOIN bigcat on vindor.bigcat_id=bigcat.bigcat_id";
 									$ReQue = mysqli_query($connect, $AdQue);
 									while ($vi = $ReQue->fetch_assoc()) {
 										echo "<tr>";
 										echo "<td>" . $vi['vin_fname'] . ' ' . $vi['vin_lname'] . "</td>";
 										echo "<td>{$vi['vin_email']}</td>";
-										$CaQue = "SELECT * FROM bigcat WHERE bigcat_id=" . $vi['bigcat_id'];
-										$Recat = mysqli_query($connect, $CaQue);
-										$Cat = $Recat->fetch_assoc();
-										echo "<td>{$Cat['bigcat_name']}</td>";
+										echo "<td>{$vi['bigcat_name']}</td>";
 										echo "<td>{$vi['vin_mobile']}</td>
 										<td>{$vi['vin_address']}</td>
 										<td>{$vi['vin_sdate']}</td>";
