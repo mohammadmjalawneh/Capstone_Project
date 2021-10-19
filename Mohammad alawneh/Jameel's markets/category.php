@@ -164,7 +164,7 @@ if (isset($_GET['id'])) {
                                             <div class='card-body'>
                                             <div class='single_category_product'>
                                             <div class='single_category_img'>
-                                            <img src='img/product_img/{$I3['product_img']}' alt='' style='height: 20rem;'>
+                                            <img src='img/pro_img/{$I3['product_img']}' alt='' style='height: 20rem;'>
                                             <div class='category_social_icon'>
                                             <ul>
                                             <li><a href='#''><i class='ti-heart'></i></a></li>
