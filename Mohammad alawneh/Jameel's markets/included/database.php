@@ -20,7 +20,7 @@ class DBO
 
 	public function getimg($id)
 	{
-		$Que = "SELECT * FROM pro_img where pro_id=" . $id;
+		$Que = "SELECT * FROM product_img where product_id=" . $id;
 		$res = mysqli_query($this->conn, $Que);
 		$I = $res->fetch_assoc();
 		return $I;
@@ -36,7 +36,7 @@ class DBO
 
 	public function proinfo($id)
 	{
-		$Que = "SELECT * FROM product where pro_id=" . $id;
+		$Que = "SELECT * FROM product where product_id=" . $id;
 		$res = mysqli_query($this->conn, $Que);
 		$I = $res->fetch_assoc();
 		return $I;
@@ -44,7 +44,7 @@ class DBO
 
 	public function getbrand($id)
 	{
-		$Que = "SELECT * FROM brand where br_id=" . $id;
+		$Que = "SELECT * FROM brand where brand_id=" . $id;
 		$res = mysqli_query($this->conn, $Que);
 		$I = $res->fetch_assoc();
 		return $I;
@@ -52,26 +52,26 @@ class DBO
 
 	public function getvin($id)
 	{
-		$Que = "SELECT * FROM vindor where vin_id=" . $id;
+		$Que = "SELECT * FROM vindor where vindor_id=" . $id;
 		$res = mysqli_query($this->conn, $Que);
 		$I = $res->fetch_assoc();
 		return $I;
 	}
 
-	public function getpro_count()
+	public function getproduct_count()
 	{
 		$C = 0;
-		$Que = "SELECT * FROM product where pro_sta='1'";
+		$Que = "SELECT * FROM product where product_sta='1'";
 		$res = mysqli_query($this->conn, $Que);
 		while ($I = $res->fetch_assoc()) {
 			$big = $this->getcat($I['bigcat_id']);
 			if ($big['bigcat_sta']) {
 				$sub = $this->getsub($I['subcat_id']);
 				if ($sub['subcat_sta']) {
-					$br = $this->getbrand($I['br_id']);
-					if ($br['br_sta']) {
-						$vin = $this->getvin($I['vin_id']);
-						if ($vin['vin_status']) {
+					$br = $this->getbrand($I['brand_id']);
+					if ($br['brand_sta']) {
+						$vin = $this->getvin($I['vindor_id']);
+						if ($vin['vindor_status']) {
 							$C++;
 						}
 					}
@@ -82,18 +82,18 @@ class DBO
 		return $C;
 	}
 
-	public function subpro_count($id)
+	public function subproduct_count($id)
 	{
 		$C = 0;
-		$Que = "SELECT * FROM product where pro_sta='1' AND subcat_id=" . $id;
+		$Que = "SELECT * FROM product where product_sta='1' AND subcat_id=" . $id;
 		$res = mysqli_query($this->conn, $Que);
 		while ($I = $res->fetch_assoc()) {
 			$big = $this->getcat($I['bigcat_id']);
 			if ($big['bigcat_sta']) {
-				$br = $this->getbrand($I['br_id']);
-				if ($br['br_sta']) {
-					$vin = $this->getvin($I['vin_id']);
-					if ($vin['vin_status']) {
+				$br = $this->getbrand($I['brand_id']);
+				if ($br['brand_sta']) {
+					$vin = $this->getvin($I['vindor_id']);
+					if ($vin['vindor_status']) {
 						$C++;
 					}
 				}
@@ -103,18 +103,18 @@ class DBO
 		return $C;
 	}
 
-	public function bigcatpro_count($id)
+	public function bigcatproduct_count($id)
 	{
 		$C = 0;
-		$Que = "SELECT * FROM product where pro_sta='1' AND bigcat_id=" . $id;
+		$Que = "SELECT * FROM product where product_sta='1' AND bigcat_id=" . $id;
 		$res = mysqli_query($this->conn, $Que);
 		while ($I = $res->fetch_assoc()) {
 			$sub = $this->getsub($I['subcat_id']);
 			if ($sub['subcat_sta']) {
-				$br = $this->getbrand($I['br_id']);
-				if ($br['br_sta']) {
-					$vin = $this->getvin($I['vin_id']);
-					if ($vin['vin_status']) {
+				$br = $this->getbrand($I['brand_id']);
+				if ($br['brand_sta']) {
+					$vin = $this->getvin($I['vindor_id']);
+					if ($vin['vindor_status']) {
 						$C++;
 					}
 				}
@@ -124,18 +124,18 @@ class DBO
 		return $C;
 	}
 
-	public function brpro_count($id)
+	public function brproduct_count($id)
 	{
 		$C = 0;
-		$Que = "SELECT * FROM product where br_id='$id'";
+		$Que = "SELECT * FROM product where brand_id='$id'";
 		$res = mysqli_query($this->conn, $Que);
 		while ($I = $res->fetch_assoc()) {
 			$big = $this->getcat($I['bigcat_id']);
 			if ($big['bigcat_sta']) {
 				$sub = $this->getsub($I['subcat_id']);
 				if ($sub['subcat_sta']) {
-					$vin = $this->getvin($I['vin_id']);
-					if ($vin['vin_status']) {
+					$vin = $this->getvin($I['vindor_id']);
+					if ($vin['vindor_status']) {
 						$C++;
 					}
 				}
@@ -193,15 +193,15 @@ class DBO
 		return $add;
 	}
 
-	public function add_pro($order_id, $pro_id, $pro_price)
+	public function add_pro($order_id, $product_id, $product_price)
 	{
-		$Que = "INSERT INTO or_det (order_id, pro_id, pro_price) VALUES ('$order_id', '$pro_id', '$pro_price')";
+		$Que = "INSERT INTO or_det (order_id, product_id, product_price) VALUES ('$order_id', '$product_id', '$product_price')";
 		$res = mysqli_query($this->conn, $Que);
 	}
 
 	public function update_qty($value, $id)
 	{
-		$Que = "UPDATE product SET pro_qty = '$value' WHERE pro_id = $id";
+		$Que = "UPDATE product SET product_qty = '$value' WHERE product_id = $id";
 		$res = mysqli_query($this->conn, $Que);
 	}
 
@@ -221,9 +221,9 @@ class DBO
 		return $ad;
 	}
 
-	public function add_com($pro_id, $email, $com_name, $mobile, $com_time, $com_text)
+	public function add_com($product_id, $email, $com_name, $mobile, $com_time, $com_text)
 	{
-		$Que = "INSERT INTO reviews (pro_id,email,com_name, mobile, com_time, com_text) VALUES ($pro_id, '$email', '$com_name', '$mobile', '$com_time', '$com_text')";
+		$Que = "INSERT INTO reviews (product_id,email,com_name, mobile, com_time, com_text) VALUES ($product_id, '$email', '$com_name', '$mobile', '$com_time', '$com_text')";
 		$res = mysqli_query($this->conn, $Que);
 	}
 

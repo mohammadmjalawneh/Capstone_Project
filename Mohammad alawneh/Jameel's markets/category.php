@@ -23,23 +23,24 @@ if (isset($_GET['id'])) {
     $T = new DBO();
     $R = new DBO();
     $C = $T->getcat($_GET['C']);
-    $N = $R->bigcatpro_count($_GET['C']);
+    $N = $R->bigcatproduct_count($_GET['C']);
 } elseif (isset($_GET['S'])) {
     $N = 0;
     $T = new DBO();
     $R = new DBO();
     $C = $T->getsub($_GET['S']);
-    $N = $R->subpro_count($_GET['S']);
+    $N = $R->subproduct_count($_GET['S']);
 } elseif (isset($_GET['B'])) {
     $T = new DBO();
     $R = new DBO();
     $C = $T->getbrand($_GET['B']);
-    $N = $R->brpro_count($_GET['B']);
+    $N = $R->brproduct_count($_GET['B']);
 } else {
     $R = new DBO();
-    $N = $R->getpro_count();
+    $N = $R->getproduct_count();
 }
 ?>
+
 <!-- Header part end-->
 <!--================Home Banner Area =================-->
 <!-- breadcrumb start-->
@@ -107,11 +108,11 @@ if (isset($_GET['id'])) {
                                     <div class='right ti-plus'></div>
                                     </a>";
                                     echo "<ul>";
-                                    $Q2 = "SELECT * FROM brand where bigcat_id=" . $I['bigcat_id'] . " AND br_sta ='1'";
+                                    $Q2 = "SELECT * FROM brand where bigcat_id=" . $I['bigcat_id'] . " AND brand_sta ='1'";
                                     $r2 = mysqli_query($connect, $Q2);
                                     while ($I2 = $r2->fetch_assoc()) {
                                         echo "<li>
-                                        <a href='category.php?B={$I2['br_id']}'>{$I2['br_name']}</a>
+                                        <a href='category.php?B={$I2['brand_id']}'>{$I2['brand_name']}</a>
                                         </li>";
                                     }
                                     echo "</ul>";
@@ -134,7 +135,7 @@ if (isset($_GET['id'])) {
                                 } elseif (isset($_GET['S'])) {
                                     echo "<h2>{$C['subcat_name']} ({$N})</h2>";
                                 } elseif (isset($_GET['B'])) {
-                                    echo "<h2>{$C['br_name']} ({$N})</h2>";
+                                    echo "<h2>{$C['brand_name']} ({$N})</h2>";
                                 } else {
                                     echo "<h2>All Products ($N)</h2>";
                                 }
@@ -146,16 +147,16 @@ if (isset($_GET['id'])) {
                         <?php
                         if (isset($_GET['C'])) {
                             $OBJ2 = new DBO();
-                            $Que = "SELECT * FROM product where bigcat_id=" . $_GET['C'] . " and pro_sta='1'";
+                            $Que = "SELECT * FROM product where bigcat_id=" . $_GET['C'] . " and product_sta='1'";
                             $R = mysqli_query($connect, $Que);
                             while ($I = $R->fetch_assoc()) {
                                 $sub = $OBJ2->getsub($I['subcat_id']);
                                 if ($sub['subcat_sta']) {
-                                    $br = $OBJ2->getbrand($I['br_id']);
-                                    if ($br['br_sta']) {
-                                        $vin = $OBJ2->getvin($I['vin_id']);
-                                        if ($vin['vin_status']) {
-                                            $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                    $br = $OBJ2->getbrand($I['brand_id']);
+                                    if ($br['brand_sta']) {
+                                        $vin = $OBJ2->getvin($I['vindor_id']);
+                                        if ($vin['vindor_status']) {
+                                            $Q = "SELECT * FROM product_img where product_id=" . $I['product_id'];
                                             $O = mysqli_query($connect, $Q);
                                             $I3 = $O->fetch_assoc();
                                             echo "<div class='col-lg-4 col-sm-6 mt-4'>
@@ -163,19 +164,19 @@ if (isset($_GET['id'])) {
                                             <div class='card-body'>
                                             <div class='single_category_product'>
                                             <div class='single_category_img'>
-                                            <img src='img/pro_img/{$I3['pro_img']}' alt='' style='height: 20rem;'>
+                                            <img src='img/product_img/{$I3['product_img']}' alt='' style='height: 20rem;'>
                                             <div class='category_social_icon'>
                                             <ul>
                                             <li><a href='#''><i class='ti-heart'></i></a></li>
-                                            <li><a href='category.php?C={$I['bigcat_id']}&id={$I['pro_id']}'><i class='ti-bag'></i></a></li>
+                                            <li><a href='category.php?C={$I['bigcat_id']}&id={$I['product_id']}'><i class='ti-bag'></i></a></li>
                                             </ul>
                                             </div>
                                             <div class='category_product_text'>
-                                            <a href='single-product.php?S={$I['pro_id']}'><h5>{$I['pro_name']}</h5></a>
+                                            <a href='single-product.php?S={$I['product_id']}'><h5>{$I['product_name']}</h5></a>
                                             </div>
                                             </div>
                                             </div>
-                                            <div class='card-footer'><p>JOD{$I['pro_price']}</p></div>
+                                            <div class='card-footer'><p>JOD{$I['product_price']}</p></div>
                                             </div>
                                             </div>
                                             </div>";
@@ -185,16 +186,16 @@ if (isset($_GET['id'])) {
                             }
                         } elseif (isset($_GET['S'])) {
                             $OBJ2 = new DBO();
-                            $Que = "SELECT * FROM product where subcat_id=" . $_GET['S'] . " and pro_sta='1'";
+                            $Que = "SELECT * FROM product where subcat_id=" . $_GET['S'] . " and product_sta='1'";
                             $R = mysqli_query($connect, $Que);
                             while ($I = $R->fetch_assoc()) {
                                 $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
-                                    $br = $OBJ2->getbrand($I['br_id']);
-                                    if ($br['br_sta']) {
-                                        $vin = $OBJ2->getvin($I['vin_id']);
-                                        if ($vin['vin_status']) {
-                                            $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                    $br = $OBJ2->getbrand($I['brand_id']);
+                                    if ($br['brand_sta']) {
+                                        $vin = $OBJ2->getvin($I['vindor_id']);
+                                        if ($vin['vindor_status']) {
+                                            $Q = "SELECT * FROM product_img where product_id=" . $I['product_id'];
                                             $O = mysqli_query($connect, $Q);
                                             $I3 = $O->fetch_assoc();
                                             echo "<div class='col-lg-4 col-sm-6 mt-4'>
@@ -202,19 +203,19 @@ if (isset($_GET['id'])) {
                                             <div class='card-body'>
                                             <div class='single_category_product'>
                                             <div class='single_category_img'>
-                                            <img src='img/pro_img/{$I3['pro_img']}' alt='' style='height: 20rem;'>
+                                            <img src='img/product_img/{$I3['product_img']}' alt='' style='height: 20rem;'>
                                             <div class='category_social_icon'>
                                             <ul>
                                             <li><a href='#''><i class='ti-heart'></i></a></li>
-                                            <li><a href='category.php?S={$_GET['S']}&id={$I['pro_id']}'><i class='ti-bag'></i></a></li>
+                                            <li><a href='category.php?S={$_GET['S']}&id={$I['product_id']}'><i class='ti-bag'></i></a></li>
                                             </ul>
                                             </div>
                                             <div class='category_product_text'>
-                                            <a href='single-product.php?S={$I['pro_id']}'><h5>{$I['pro_name']}</h5></a>
+                                            <a href='single-product.php?S={$I['product_id']}'><h5>{$I['product_name']}</h5></a>
                                             </div>
                                             </div>
                                             </div>
-                                            <div class='card-footer'><p>JOD{$I['pro_price']}</p></div>
+                                            <div class='card-footer'><p>JOD{$I['product_price']}</p></div>
                                             </div>
                                             </div>
                                             </div>";
@@ -224,16 +225,16 @@ if (isset($_GET['id'])) {
                             }
                         } elseif (isset($_GET['B'])) {
                             $OBJ2 = new DBO();
-                            $Que = "SELECT * FROM product where pro_sta='1' AND br_id=" . $_GET['B'];
+                            $Que = "SELECT * FROM product where product_sta='1' AND brand_id=" . $_GET['B'];
                             $R2 = mysqli_query($connect, $Que);
                             while ($I = $R2->fetch_assoc()) {
                                 $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
                                     $sub = $OBJ2->getsub($I['subcat_id']);
                                     if ($sub['subcat_sta']) {
-                                        $vin = $OBJ2->getvin($I['vin_id']);
-                                        if ($vin['vin_status']) {
-                                            $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                        $vin = $OBJ2->getvin($I['vindor_id']);
+                                        if ($vin['vindor_status']) {
+                                            $Q = "SELECT * FROM product_img where product_id=" . $I['product_id'];
                                             $O = mysqli_query($connect, $Q);
                                             $I3 = $O->fetch_assoc();
                                             echo "<div class='col-lg-4 col-sm-6 mt-4'>
@@ -241,19 +242,19 @@ if (isset($_GET['id'])) {
                                             <div class='card-body'>
                                             <div class='single_category_product'>
                                             <div class='single_category_img'>
-                                            <img src='img/pro_img/{$I3['pro_img']}' alt='' style='height: 20rem;width: 80rem;'>
+                                            <img src='img/pro_img/{$I3['product_img']}' alt='' style='height: 20rem;width: 80rem;'>
                                             <div class='category_social_icon'>
                                             <ul>
                                             <li><a href='#''><i class='ti-heart'></i></a></li>
-                                            <li><a href='category.php?B={$_GET['B']}&id={$I['pro_id']}'><i class='ti-bag'></i></a></li>
+                                            <li><a href='category.php?B={$_GET['B']}&id={$I['product_id']}'><i class='ti-bag'></i></a></li>
                                             </ul>
                                             </div>
                                             <div class='category_product_text'>
-                                            <a href='single-product.php?S={$I['pro_id']}'><h5>{$I['pro_name']}</h5></a>
+                                            <a href='single-product.php?S={$I['product_id']}'><h5>{$I['product_name']}</h5></a>
                                             </div>
                                             </div>
                                             </div>
-                                            <div class='card-footer'><p>JOD{$I['pro_price']}</p></div>
+                                            <div class='card-footer'><p>JOD{$I['product_price']}</p></div>
                                             </div>
                                             </div>
                                             </div>";
@@ -264,19 +265,19 @@ if (isset($_GET['id'])) {
                         } elseif (isset($_GET['search_input'])) {
                             $OBJ2 = new DBO();
                             $Que = "SELECT * FROM product 
-                            WHERE pro_name LIKE '%" . $_GET['search_input'] . "%'
-                            OR pro_desc LIKE '%" . $_GET['search_input'] . "%'";
+                            WHERE product_name LIKE '%" . $_GET['search_input'] . "%'
+                            OR product_desc LIKE '%" . $_GET['search_input'] . "%'";
                             $R2 = mysqli_query($connect, $Que);
                             while ($I = $R2->fetch_assoc()) {
                                 $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
                                     $sub = $OBJ2->getsub($I['subcat_id']);
                                     if ($sub['subcat_sta']) {
-                                        $br = $OBJ2->getbrand($I['br_id']);
-                                        if ($br['br_sta']) {
-                                            $vin = $OBJ2->getvin($I['vin_id']);
-                                            if ($vin['vin_status']) {
-                                                $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                        $br = $OBJ2->getbrand($I['brand_id']);
+                                        if ($br['brand_sta']) {
+                                            $vin = $OBJ2->getvin($I['vindor_id']);
+                                            if ($vin['vindor_status']) {
+                                                $Q = "SELECT * FROM product_img where product_id=" . $I['product_id'];
                                                 $O = mysqli_query($connect, $Q);
                                                 $I3 = $O->fetch_assoc();
                                                 echo "<div class='col-lg-4 col-sm-6 mt-4'>
@@ -284,19 +285,19 @@ if (isset($_GET['id'])) {
                                             <div class='card-body'>
                                             <div class='single_category_product'>
                                             <div class='single_category_img'>
-                                            <img src='img/pro_img/{$I3['pro_img']}' alt='' style='height: 20rem;width: 80rem;'>
+                                            <img src='img/pro_img/{$I3['product_img']}' alt='' style='height: 20rem;width: 80rem;'>
                                             <div class='category_social_icon'>
                                             <ul>
                                             <li><a href='#''><i class='ti-heart'></i></a></li>
-                                            <li><a href='category.php?B={$_GET['search_input']}&id={$I['pro_id']}'><i class='ti-bag'></i></a></li>
+                                            <li><a href='category.php?B={$_GET['search_input']}&id={$I['product_id']}'><i class='ti-bag'></i></a></li>
                                             </ul>
                                             </div>
                                             <div class='category_product_text'>
-                                            <a href='single-product.php?S={$I['pro_id']}'><h5>{$I['pro_name']}</h5></a>
+                                            <a href='single-product.php?S={$I['product_id']}'><h5>{$I['product_name']}</h5></a>
                                             </div>
                                             </div>
                                             </div>
-                                            <div class='card-footer'><p>JOD{$I['pro_price']}</p></div>
+                                            <div class='card-footer'><p>JOD{$I['product_price']}</p></div>
                                             </div>
                                             </div>
                                             </div>";
@@ -307,18 +308,18 @@ if (isset($_GET['id'])) {
                             }
                         } else {
                             $OBJ2 = new DBO();
-                            $Que = "SELECT * FROM product where pro_sta='1'";
+                            $Que = "SELECT * FROM product where product_sta='1'";
                             $R2 = mysqli_query($connect, $Que);
                             while ($I = $R2->fetch_assoc()) {
                                 $big = $OBJ2->getcat($I['bigcat_id']);
                                 if ($big['bigcat_sta']) {
                                     $sub = $OBJ2->getsub($I['subcat_id']);
                                     if ($sub['subcat_sta']) {
-                                        $br = $OBJ2->getbrand($I['br_id']);
-                                        if ($br['br_sta']) {
-                                            $vin = $OBJ2->getvin($I['vin_id']);
-                                            if ($vin['vin_status']) {
-                                                $Q = "SELECT * FROM pro_img where pro_id=" . $I['pro_id'];
+                                        $br = $OBJ2->getbrand($I['brand_id']);
+                                        if ($br['brand_sta']) {
+                                            $vin = $OBJ2->getvin($I['vindor_id']);
+                                            if ($vin['vindor_status']) {
+                                                $Q = "SELECT * FROM product_img where product_id=" . $I['product_id'];
                                                 $O = mysqli_query($connect, $Q);
                                                 $I3 = $O->fetch_assoc();
                                                 echo "<div class='col-lg-4 col-sm-6 mt-4'>
@@ -326,19 +327,19 @@ if (isset($_GET['id'])) {
                                                 <div class='card-body'>
                                                 <div class='single_category_product'>
                                                 <div class='single_category_img'>
-                                                <img src='img/pro_img/{$I3['pro_img']}' alt='' style='height: 20rem;'>
+                                                <img src='img/pro_img/{$I3['product_img']}' alt='' style='height: 20rem;'>
                                                 <div class='category_social_icon'>
                                                 <ul>
                                                 <li><a href='#''><i class='ti-heart'></i></a></li>
-                                                <li><a href='category.php?id={$I['pro_id']}'><i class='ti-bag'></i></a></li>
+                                                <li><a href='category.php?id={$I['product_id']}'><i class='ti-bag'></i></a></li>
                                                 </ul>
                                                 </div>
                                                 <div class='category_product_text'>
-                                                <a href='single-product.php?S={$I['pro_id']}'><h5>{$I['pro_name']}</h5></a>
+                                                <a href='single-product.php?S={$I['product_id']}'><h5>{$I['product_name']}</h5></a>
                                                 </div>
                                                 </div>
                                                 </div>
-                                                <div class='card-footer'><p>JOD{$I['pro_price']}</p></div>
+                                                <div class='card-footer'><p>JOD{$I['product_price']}</p></div>
                                                 </div>
                                                 </div>
                                                 </div>";

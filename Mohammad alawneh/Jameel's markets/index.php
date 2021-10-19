@@ -85,24 +85,24 @@ if (isset($_POST['removecart'])) {
             $CV = "SELECT * FROM bigcat where bigcat_sta='1'";
             $L = mysqli_query($connect, $CV);
             while ($A = $L->fetch_assoc()) {
-                $proQ = "SELECT * FROM product WHERE pro_sta='1' AND bigcat_id=" . $A['bigcat_id'];
+                $proQ = "SELECT * FROM product WHERE product_sta='1' AND bigcat_id=" . $A['bigcat_id'];
                 $row = mysqli_query($connect, $proQ);
                 $k = 1;
                 $IM = new DBO();
                 while ($P = $row->fetch_assoc()) {
                     $F = $IM->getcat($P['bigcat_id']);
-                    $G = $IM->getimg($P['pro_id']);
-                    $B = $IM->getbrand($P['br_id']);
+                    $G = $IM->getimg($P['product_id']);
+                    $B = $IM->getbrand($P['brand_id']);
                     echo "<div class='col-lg-4 col-sm-6' style='width: 100%;height: 100%;'>
                         <div class='single_arrivel_item weidth_1 mix {$F['bigcat_name']}'>
-                        <img src='img/pro_img/{$G['pro_img']}' alt='#'>
+                        <img src='img/pro_img/{$G['product_img']}' alt='#'>
                         <div class='hover_text'>
-                        <p>{$B['br_name']}</p>
-                        <a href='single-product.php?id={$P['pro_id']}'><h3>{$P['pro_name']}</h3></a>
-                        <h5>JOD {$P['pro_price']}</h5>
+                        <p>{$B['brand_name']}</p>
+                        <a href='single-product.php?id={$P['product_id']}'><h3>{$P['product_name']}</h3></a>
+                        <h5>JOD {$P['product_price']}</h5>
                         <div class='social_icon'>
                         <a href='#'><i class='ti-heart'></i></a>
-                        <a href='index.php?id={$P['pro_id']}'><i class='ti-bag'></i></a>
+                        <a href='index.php?id={$P['product_id']}'><i class='ti-bag'></i></a>
                         </div>
                         </div>
                         </div>
