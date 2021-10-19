@@ -130,35 +130,39 @@ include_once 'included/header.php'; ?>
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">Mobile Number</label>
-								<input id="inputEmail" type="Number" name="phone" required="" placeholder="Enter Phone" class="form-control xphone-inputmask" id="xphone-mask" value="<?php
-																																														if (isset($_GET['Eid'])) {
-																																															echo $vd['vin_mobile'];
-																																														}
-																																														?>">
+								<input id="inputEmail" type="Number" name="phone" required="" placeholder="Enter Phone" class="form-control xphone-inputmask" id="xphone-mask" value="
+								<?php
+								if (isset($_GET['Eid'])) {
+									echo $vd['vin_mobile'];
+								}
+								?>">
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">Address</label>
-								<input id="inputEmail" type="text" name="address" required="" placeholder="Enter Address" class="form-control" value="<?php
-																																						if (isset($_GET['Eid'])) {
-																																							echo $vd['vin_address'];
-																																						}
-																																						?>">
+								<input id="inputEmail" type="text" name="address" required="" placeholder="Enter Address" class="form-control" value="
+								<?php
+								if (isset($_GET['Eid'])) {
+									echo $vd['vin_address'];
+								}
+								?>">
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">Password</label>
-								<input id="inputPassword" type="password" name="pass" placeholder="Password" required="" class="form-control" value="<?php
-																																						if (isset($_GET['Eid'])) {
-																																							echo $vd['vin_pass'];
-																																						}
-																																						?>">
+								<input id="inputPassword" type="password" name="pass" placeholder="Password" required="" class="form-control" value="
+								<?php
+								if (isset($_GET['Eid'])) {
+									echo $vd['vin_pass'];
+								}
+								?>">
 							</div>
 							<div class="form-group">
 								<label for="inputRepeatPassword">Repeat Password</label>
-								<input id="inputRepeatPassword" data-parsley-equalto="#inputPassword" type="password" required="" placeholder="Password" class="form-control" value="<?php
-																																														if (isset($_GET['Eid'])) {
-																																															echo $vd['vin_pass'];
-																																														}
-																																														?>">
+								<input id="inputRepeatPassword" data-parsley-equalto="#inputPassword" type="password" required="" placeholder="Password" class="form-control" value="
+								<?php
+								if (isset($_GET['Eid'])) {
+									echo $vd['vin_pass'];
+								}
+								?>">
 							</div>
 							<?php
 							if (isset($_GET['Eid'])) {
