@@ -85,27 +85,30 @@ include_once 'included/header.php'; ?>
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">Middle Name</label>
-								<input id="inputEmail" type="text" name="mname" required="" placeholder="Enter Middle Name" class="form-control" value="<?php
-																																						if (isset($_GET['Eid'])) {
-																																							echo $vd['vin_mname'];
-																																						}
-																																						?>">
+								<input id="inputEmail" type="text" name="mname" required="" placeholder="Enter Middle Name" class="form-control" value="
+								<?php
+								if (isset($_GET['Eid'])) {
+									echo $vd['vin_mname'];
+								}
+								?>">
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">Last Name</label>
-								<input id="inputEmail" type="text" name="lname" required="" placeholder="Enter Last Name" class="form-control" value="<?php
-																																						if (isset($_GET['Eid'])) {
-																																							echo $vd['vin_lname'];
-																																						}
-																																						?>">
+								<input id="inputEmail" type="text" name="lname" required="" placeholder="Enter Last Name" class="form-control" value="
+								<?php
+								if (isset($_GET['Eid'])) {
+									echo $vd['vin_lname'];
+								}
+								?>">
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">Email address</label>
-								<input id="inputEmail" type="email" name="email" required="" placeholder="Enter email" class="form-control" value="<?php
-																																					if (isset($_GET['Eid'])) {
-																																						echo $vd['vin_email'];
-																																					}
-																																					?>">
+								<input id="inputEmail" type="email" name="email" required="" placeholder="Enter email" class="form-control" value="
+								<?php
+								if (isset($_GET['Eid'])) {
+									echo $vd['vin_email'];
+								}
+								?>">
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">Category</label>
