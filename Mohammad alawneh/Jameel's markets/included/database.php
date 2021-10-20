@@ -152,13 +152,13 @@ class DBO
 
 	public function addcos($fname, $mname, $lname, $email, $pass, $mobile, $img)
 	{
-		$Que = "INSERT INTO customer (cos_fname, cos_mname, cos_lname,cos_email, cos_pass, cos_mobile, cos_img, cos_status) VALUES ('$fname', '$mname', '$lname', '$email', '$pass', '$mobile', '$img', '1')";
+		$Que = "INSERT INTO customer (customer_fname, customer_mname, customer_lname,customer_email, customer_pass, customer_mobile, customer_img, customer_status) VALUES ('$fname', '$mname', '$lname', '$email', '$pass', '$mobile', '$img', '1')";
 		$res = mysqli_query($this->conn, $Que);
 	}
 
 	public function chick_cos($email, $pass)
 	{
-		$Que = "SELECT * FROM customer where cos_email='" . $email . "' AND cos_pass='" . $pass . "'";
+		$Que = "SELECT * FROM customer where customer_email='" . $email . "' AND customer_pass='" . $pass . "'";
 		$res = mysqli_query($this->conn, $Que);
 		$cos = $res->fetch_assoc();
 		return $cos;
@@ -179,15 +179,15 @@ class DBO
 		return $add;
 	}
 
-	public function add_order($cos_id, $add_id, $total, $or_notes)
+	public function add_order($customer_id, $add_id, $total, $or_notes)
 	{
-		$Que = "INSERT INTO orders (or_date, cos_id, add_id, total, or_notes, or_status) VALUES ('" . date('Y-m-d') . "', '$cos_id', '$add_id', '$total', '$or_notes', '1')";
+		$Que = "INSERT INTO orders (or_date, customer_id, add_id, total, or_notes, or_status) VALUES ('" . date('Y-m-d') . "', '$customer_id', '$add_id', '$total', '$or_notes', '1')";
 		$res = mysqli_query($this->conn, $Que);
 	}
 
-	public function search_ord($cos_id, $add_id, $total)
+	public function search_ord($customer_id, $add_id, $total)
 	{
-		$Que = "SELECT * FROM orders WHERE cos_id='$cos_id' AND add_id='$add_id' AND total=$total";
+		$Que = "SELECT * FROM orders WHERE customer_id='$customer_id' AND add_id='$add_id' AND total=$total";
 		$res = mysqli_query($this->conn, $Que);
 		$add = $res->fetch_assoc();
 		return $add;
@@ -229,7 +229,7 @@ class DBO
 
 	public function check_cos($email)
 	{
-		$Que = "SELECT * FROM customer WHERE cos_email = '$email'";
+		$Que = "SELECT * FROM customer WHERE customer_email = '$email'";
 		$res = mysqli_query($this->conn, $Que);
 		$cos = $res->fetch_assoc();
 		return $cos;
@@ -237,13 +237,13 @@ class DBO
 
 	public function up_pass_cos($id, $pass)
 	{
-		$Que = "UPDATE customer SET cos_pass = '$pass' WHERE cos_id =" . $id;
+		$Que = "UPDATE customer SET customer_pass = '$pass' WHERE customer_id =" . $id;
 		$res = mysqli_query($this->conn, $Que);
 	}
 
 	public function get_cos($id)
 	{
-		$Que = "SELECT * FROM customer where cos_id=" . $id;
+		$Que = "SELECT * FROM customer where customer_id=" . $id;
 		$res = mysqli_query($this->conn, $Que);
 		$COS = $res->fetch_assoc();
 		return $COS;

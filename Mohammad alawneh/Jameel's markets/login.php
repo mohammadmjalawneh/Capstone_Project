@@ -44,12 +44,13 @@ include_once 'included/database.php';
                             if (empty($TR)) {
                                 echo "<div class='alert alert-danger' role='alert'>
                                 Please check Your E-mail or Password</div>";
-                            } elseif ($TR['cos_status']) {
-                                $_SESSION['cid'] = $TR['cos_id'];
+                            } elseif ($TR['costmer_status']) {
+                                $_SESSION['cid'] = $TR['costmer_id'];
                                 header("Location:checkout.php");
                             } else {
                                 echo "<div class='alert alert-danger' role='alert'>
-                                Please contact with the costmer care center</div>";
+                                Please contact with the costmer care center
+                                </div>";
                             }
                         }
                         ?>
