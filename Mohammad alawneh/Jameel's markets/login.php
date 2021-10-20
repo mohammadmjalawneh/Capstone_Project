@@ -44,8 +44,8 @@ include_once 'included/database.php';
                             if (empty($TR)) {
                                 echo "<div class='alert alert-danger' role='alert'>
                                 Please check Your E-mail or Password</div>";
-                            } elseif ($TR['costmer_status']) {
-                                $_SESSION['cid'] = $TR['costmer_id'];
+                            } elseif ($TR['customer_status']) {
+                                $_SESSION['cid'] = $TR['customer_id'];
                                 header("Location:checkout.php");
                             } else {
                                 echo "<div class='alert alert-danger' role='alert'>
