@@ -167,8 +167,7 @@ class DBO
 	public function add_address($country, $city, $sr_name, $bil_num)
 	{
 		$Que = "INSERT INTO address (country, city, sr_name, bil_num) VALUES ('$country', '$city', '$sr_name', '$bil_num')";
-		$res = mysqli_query($this->conn, $Que);
-		echo '<h1>' . $Que . '</h1>';
+		mysqli_query($this->conn, $Que);
 	}
 
 	public function add_search($country, $city, $sr_name, $bil_num)
