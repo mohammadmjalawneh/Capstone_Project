@@ -1,13 +1,12 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2020 at 10:05 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Oct 20, 2021 at 10:59 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.11
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
@@ -29,8 +28,8 @@ CREATE TABLE `address` (
   `address_id` int(5) NOT NULL,
   `country` varchar(32) NOT NULL,
   `city` varchar(32) NOT NULL,
-  `sr_name` varchar(50) NOT NULL,
-  `bil_num` int(4) NOT NULL
+  `street_name` varchar(50) NOT NULL,
+  `building_number` int(4) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
 -- Dumping data for table `address`
@@ -39,8 +38,8 @@ INSERT INTO `address` (
     `address_id`,
     `country`,
     `city`,
-    `sr_name`,
-    `bil_num`
+    `street_name`,
+    `building_number`
   )
 VALUES (40, 'Jordan', 'amman', 'King Abdullah', 1030),
   (42, 'England', 'amman', 'King Abdullah', 1030),
@@ -59,6 +58,7 @@ CREATE TABLE `admin` (
   `admin_img` varchar(100) NOT NULL,
   `admin_phone` varchar(20) NOT NULL,
   `admin_address` varchar(100) NOT NULL,
+  `add_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `admin_status` tinyint(1) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
@@ -74,6 +74,7 @@ INSERT INTO `admin` (
     `admin_img`,
     `admin_phone`,
     `admin_address`,
+    `add_at`,
     `admin_status`
   )
 VALUES (
@@ -86,6 +87,7 @@ VALUES (
     'mohammad\'salawnehPhoto.jpeg',
     '0799823683',
     'Irbid Jordan',
+    '2021-10-20 20:58:34',
     1
   ),
   (
@@ -98,6 +100,7 @@ VALUES (
     '1600681429rp3.jpg',
     '0799823683',
     'Karak-Jordan',
+    '2021-10-20 20:58:34',
     0
   ),
   (
@@ -110,6 +113,7 @@ VALUES (
     '1600440211rp4.jpg',
     '0799823683',
     'Irbid-Jordan',
+    '2021-10-20 20:58:34',
     1
   ),
   (
@@ -122,6 +126,7 @@ VALUES (
     '1601468966DBdesign.png',
     '0776219747',
     'maldifs',
+    '2021-10-20 20:58:34',
     1
   );
 -- --------------------------------------------------------
@@ -154,8 +159,8 @@ VALUES (11, 6),
 CREATE TABLE `bigcat` (
   `bigcat_id` int(3) NOT NULL,
   `bigcat_name` varchar(100) NOT NULL,
-  `bigcat_img` varchar(100) NOT NULL,
-  `bigcat_sta` tinyint(1) NOT NULL
+  `bigcat_img_url` varchar(100) NOT NULL,
+  `bigcat_status` tinyint(1) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
 -- Dumping data for table `bigcat`
@@ -163,8 +168,8 @@ CREATE TABLE `bigcat` (
 INSERT INTO `bigcat` (
     `bigcat_id`,
     `bigcat_name`,
-    `bigcat_img`,
-    `bigcat_sta`
+    `bigcat_img_url`,
+    `bigcat_status`
   )
 VALUES (1, 'Clothes', '16008034561.jpg', 1),
   (2, 'Shoses', '1600799594feature_3.png', 1),
@@ -279,7 +284,7 @@ VALUES (
 --
 CREATE TABLE `orders` (
   `order_id` int(9) NOT NULL,
-  `order_date` date NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `customer_id` int(7) NOT NULL,
   `address_id` int(11) NOT NULL,
   `total` decimal(6, 2) NOT NULL,
@@ -298,22 +303,30 @@ INSERT INTO `orders` (
     `order_notes`,
     `order_status`
   )
-VALUES (24, '2020-09-29', 1, 42, '177.50', '', 1);
+VALUES (
+    24,
+    '2020-09-28 21:00:00',
+    1,
+    42,
+    '177.50',
+    '',
+    1
+  );
 -- --------------------------------------------------------
 --
--- Table structure for table `order_det`
+-- Table structure for table `order_details`
 --
-CREATE TABLE `order_det` (
-  `order_d_id` int(9) NOT NULL,
+CREATE TABLE `order_details` (
+  `order_details_id` int(9) NOT NULL,
   `order_id` int(9) NOT NULL,
   `product_id` int(7) NOT NULL,
   `product_price` decimal(4, 2) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
--- Dumping data for table `order_det`
+-- Dumping data for table `order_details`
 --
-INSERT INTO `order_det` (
-    `order_d_id`,
+INSERT INTO `order_details` (
+    `order_details_id`,
     `order_id`,
     `product_id`,
     `product_price`
@@ -358,7 +371,7 @@ INSERT INTO `product` (
 VALUES (
     28,
     'Women\'s Kaftan Dress Elegant Lace Patchwork Long Sleeve High Waist Muslim Kaftan',
-    '				',
+    '',
     '25.00',
     10,
     45,
@@ -371,7 +384,7 @@ VALUES (
   (
     31,
     'Women\'s Kaftan Dress Embroidery Long Sleeve Stand Collar Muslim Arabian Clothing',
-    '				',
+    '',
     '25.00',
     0,
     36,
@@ -384,7 +397,7 @@ VALUES (
   (
     32,
     'Women\'s Kaftan Dress Flare Sleeve High Waist Fashion Arabian Clothing',
-    '					',
+    '',
     '30.00',
     0,
     29,
@@ -397,7 +410,7 @@ VALUES (
   (
     33,
     'Women\'s Kaftan Dress Loose Batwing Sleeve Applique Muslim Arabian Clothing',
-    '					',
+    '',
     '40.00',
     0,
     -4,
@@ -594,14 +607,14 @@ VALUES (
 -- Table structure for table `product_img`
 --
 CREATE TABLE `product_img` (
-  `ID` int(15) NOT NULL,
+  `image_id` int(15) NOT NULL,
   `product_id` int(7) NOT NULL,
   `product_img` varchar(300) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
 -- Dumping data for table `product_img`
 --
-INSERT INTO `product_img` (`ID`, `product_id`, `product_img`)
+INSERT INTO `product_img` (`image_id`, `product_id`, `product_img`)
 VALUES (1, 27, '160081434470.jpg'),
   (
     2,
@@ -734,7 +747,7 @@ CREATE TABLE `reviews` (
   `email` varchar(100) NOT NULL,
   `com_name` varchar(100) NOT NULL,
   `mobile` varchar(15) NOT NULL,
-  `com_time` datetime NOT NULL,
+  `com_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `com_text` varchar(500) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
@@ -896,11 +909,6 @@ VALUES (
 -- Indexes for dumped tables
 --
 --
--- Indexes for table `address`
---
-ALTER TABLE `address`
-ADD PRIMARY KEY (`address`);
---
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
@@ -934,12 +942,6 @@ ADD PRIMARY KEY (`order_id`),
   ADD KEY `costmer_id` (`customer_id`),
   ADD KEY `address_id` (`address_id`);
 --
--- Indexes for table `order_det`
---
-ALTER TABLE `order_det`
-ADD PRIMARY KEY (`order_d_id`),
-  ADD KEY `order_id` (`order_id`);
---
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
@@ -952,7 +954,7 @@ ADD PRIMARY KEY (`product_id`),
 -- Indexes for table `product_img`
 --
 ALTER TABLE `product_img`
-ADD PRIMARY KEY (`ID`),
+ADD PRIMARY KEY (`image_id`),
   ADD KEY `product_id` (`product_id`);
 --
 -- Indexes for table `reviews`
@@ -974,12 +976,6 @@ ADD PRIMARY KEY (`vindor_id`);
 -- AUTO_INCREMENT for dumped tables
 --
 --
--- AUTO_INCREMENT for table `address`
---
-ALTER TABLE `address`
-MODIFY `address_id` int(5) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 44;
---
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
@@ -997,91 +993,6 @@ MODIFY `bigcat_id` int(3) NOT NULL AUTO_INCREMENT,
 ALTER TABLE `brand`
 MODIFY `brand_id` int(5) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 31;
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-MODIFY `customer_id` int(7) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 5;
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-MODIFY `order_id` int(9) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 26;
---
--- AUTO_INCREMENT for table `order_det`
---
-ALTER TABLE `order_det`
-MODIFY `order_d_id` int(9) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 116;
---
--- AUTO_INCREMENT for table `product`
---
-ALTER TABLE `product`
-MODIFY `product_id` int(6) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 51;
---
--- AUTO_INCREMENT for table `product_img`
---
-ALTER TABLE `product_img`
-MODIFY `ID` int(15) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 62;
---
--- AUTO_INCREMENT for table `reviews`
---
-ALTER TABLE `reviews`
-MODIFY `com_id` int(8) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 8;
---
--- AUTO_INCREMENT for table `subcat`
---
-ALTER TABLE `subcat`
-MODIFY `subcat_id` int(4) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 18;
---
--- AUTO_INCREMENT for table `vindor`
---
-ALTER TABLE `vindor`
-MODIFY `vindor_id` int(5) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 6;
---
--- Constraints for dumped tables
---
---
--- Constraints for table `admin_privileges`
---
-ALTER TABLE `admin_privileges`
-ADD CONSTRAINT `admin_privileges_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`);
---
--- Constraints for table `brand`
---
-ALTER TABLE `brand`
-ADD CONSTRAINT `brand_ibfk_1` FOREIGN KEY (`bigcat_id`) REFERENCES `bigcat` (`bigcat_id`);
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`);
---
--- Constraints for table `order_det`
---
-ALTER TABLE `order_det`
-ADD CONSTRAINT `order_det_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`);
---
--- Constraints for table `product`
---
-ALTER TABLE `product`
-ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`bigcat_id`) REFERENCES `bigcat` (`bigcat_id`),
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`brand_id`),
-  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`subcat_id`) REFERENCES `subcat` (`subcat_id`),
-  ADD CONSTRAINT `product_ibfk_4` FOREIGN KEY (`vindor_id`) REFERENCES `vindor` (`vindor_id`);
---
--- Constraints for table `reviews`
---
-ALTER TABLE `reviews`
-ADD CONSTRAINT `fr6_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
 COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
 ;
